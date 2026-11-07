@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <defs>
+    <linearGradient id="nkGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff3366" />
+      <stop offset="100%" stop-color="#cc0033" />
+    </linearGradient>
+  </defs>
+  <path d="M15 10 L85 10 L85 65 L50 95 L15 65 Z" fill="#0d1117" stroke="url(#nkGrad)" stroke-width="4" />
+  <text x="50" y="58" font-family="'Montserrat', sans-serif" font-weight="900" font-size="32" fill="#ffffff" text-anchor="middle">NK</text>
+</svg>
+

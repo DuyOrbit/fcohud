@@ -1,0 +1,49 @@
+{
+  "activeScene": "ingame",
+  "introState": {
+    "isPlaying": false,
+    "step": 1
+  },
+  "tournament": {
+    "title": "VIETNAM PRO LEAGUE",
+    "season": "SUMMER 2026",
+    "stage": "FINAL",
+    "game": "GAME 3",
+    "logoScale": 100,
+    "logoOffsetY": 0,
+    "logoUrl": "uploads/logo-1793980091269.png",
+    "logoType": "image"
+  },
+  "player1": {
+    "name": "LHAT",
+    "team": "NK",
+    "color": "#ff2244",
+    "photo": "uploads/p1-1793979791261.png",
+    "vdoNinjaUrl": "https://vdo.ninja/?view=TfQ69jE&solo=1&room=123&password=123",
+    "scale": 160,
+    "offsetX": 25,
+    "offsetY": 5
+  },
+  "player2": {
+    "name": "Tabi",
+    "team": "TAG",
+    "color": "#ff7700",
+    "photo": "uploads/p2-1793979794645.png",
+    "vdoNinjaUrl": "https://vdo.ninja/?view=FpNjphP&solo=1&room=123&password=123",
+    "scale": 100,
+    "offsetX": -60,
+    "offsetY": 0
+  },
+  "camControls": {
+    "isDimmed": false,
+    "isHidden": true,
+    "isSwapped": false
+  },
+  "goalEffect": {
+    "active": false,
+    "scorer": 1,
+    "title": "VÀO!",
+    "playerName": "LHAT",
+    "color": "#ff2244"
+  }
+}

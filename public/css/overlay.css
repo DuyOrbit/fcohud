@@ -1,0 +1,461 @@
+/* =========================================================
+   CANVAS 1920x1080 TRANSPARENT OBS OVERLAY
+   ========================================================= */
+html, body {
+  width: 1920px;
+  height: 1080px;
+  overflow: hidden;
+  background-color: transparent !important;
+  font-family: var(--font-main);
+  margin: 0;
+  padding: 0;
+  user-select: none;
+}
+
+.overlay-container {
+  position: relative;
+  width: 1920px;
+  height: 1080px;
+  overflow: hidden;
+}
+
+/* =========================================================
+   SCENE 1: MATCHUP INTRO (HÌNH 3 & PHÁC THẢO HÌNH 5)
+   Sequence: Logo Center -> Banner Split -> Cutouts Slide Up
+   ========================================================= */
+.scene-intro {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1920px;
+  height: 1080px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+
+.scene-intro.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Step 1: Center FVPL Logo */
+.intro-logo-wrap {
+  position: absolute;
+  top: 48%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  width: 160px;
+  height: 160px;
+  z-index: 30;
+  transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.intro-logo-wrap.show {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.intro-logo-img {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 0 25px rgba(0, 255, 136, 0.6));
+}
+
+/* Step 2: Banner Expanding from Center */
+.intro-banner-wrap {
+  position: absolute;
+  bottom: 170px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: stretch;
+  height: 96px;
+  z-index: 20;
+  width: 0;
+  overflow: hidden;
+  transition: width 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.7));
+}
+
+.intro-banner-wrap.expand {
+  width: 1150px;
+}
+
+/* Player 1 Banner Wing (Left) */
+.intro-wing-p1 {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 30px;
+  gap: 20px;
+  background: linear-gradient(90deg, #d80027 0%, #850015 100%);
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+  border-top: 2px solid rgba(255, 255, 255, 0.3);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.intro-wing-p1 .team-badge {
+  width: 52px;
+  height: 52px;
+}
+
+.intro-wing-p1 .player-title {
+  font-size: 28px;
+  font-weight: 900;
+  color: #ffffff;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+}
+
+/* Center Stage Wedge */
+.intro-stage-center {
+  min-width: 200px;
+  background: #11141c;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-top: 3px solid #ff3344;
+  border-bottom: 3px solid #ff7700;
+  padding: 0 16px;
+}
+
+.stage-title {
+  font-family: var(--font-rajdhani);
+  font-size: 26px;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1;
+  letter-spacing: 2px;
+}
+
+.stage-sub {
+  font-size: 13px;
+  font-weight: 800;
+  color: #ffaa00;
+  letter-spacing: 1.5px;
+  margin-top: 4px;
+}
+
+/* Player 2 Banner Wing (Right) */
+.intro-wing-p2 {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 30px;
+  gap: 20px;
+  background: linear-gradient(270deg, #ffffff 0%, #e0e0e0 100%);
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+  border-top: 2px solid rgba(255, 255, 255, 0.4);
+  border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+}
+
+.intro-wing-p2 .player-title {
+  font-size: 28px;
+  font-weight: 900;
+  color: #ff5500;
+  letter-spacing: 1px;
+}
+
+.intro-wing-p2 .team-badge {
+  width: 52px;
+  height: 52px;
+}
+
+/* Step 3: Player Cutouts & Center Logo (Slide Up from Banner) */
+.intro-cutouts-mask {
+  position: absolute;
+  bottom: 266px; /* Sits precisely on top edge of the banner (170px + 96px) */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1400px;
+  height: 600px;
+  overflow: hidden; /* Clips so players & logo only emerge out of the banner */
+  pointer-events: none;
+  z-index: 10;
+}
+
+.intro-cutouts-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.cutout-wrapper {
+  position: absolute;
+  bottom: 0;
+  transform: translateY(105%);
+  transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+  opacity: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.cutout-wrapper-p1 {
+  left: 80px;
+  width: 440px;
+  height: 560px;
+  transform-origin: bottom center;
+}
+
+.cutout-wrapper-p2 {
+  right: 80px;
+  width: 440px;
+  height: 560px;
+  transform-origin: bottom center;
+}
+
+.cutout-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.8));
+  transform-origin: bottom center;
+  transition: transform 0.2s ease;
+}
+
+/* Center Logo Rising Up from Banner */
+.intro-center-logo-wrap {
+  left: 50%;
+  transform: translateX(-50%) translateY(105%);
+  width: 220px;
+  height: 220px;
+  bottom: 30px;
+  transform-origin: bottom center;
+  z-index: 15;
+}
+
+.intro-logo-media {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 0 25px rgba(0, 255, 136, 0.6));
+  transform-origin: bottom center;
+  transition: transform 0.2s ease;
+}
+
+.cutout-wrapper-p1.slide-up {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.cutout-wrapper-p2.slide-up {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.intro-center-logo-wrap.slide-up {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+/* =========================================================
+   SCENE 2: IN-GAME HUD (HÌNH 1 & HÌNH 2)
+   - 2 Cams beside radar mini-map (dim, hide, swap)
+   - Premier League style goal celebration over in-game scoreboard
+   ========================================================= */
+.scene-ingame {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1920px;
+  height: 1080px;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 0.4s ease;
+}
+
+/* DUAL FACECAMS FLANKING THE RADAR MINI-MAP */
+.ingame-cams-wrapper {
+  position: absolute;
+  bottom: 24px;
+  left: 0;
+  width: 1920px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 290px; /* Space exactly left open for FC Online radar mini-map */
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+}
+
+/* Dim Mode: when ball moves down to pitch bottom */
+.ingame-cams-wrapper.dimmed {
+  opacity: 0.28 !important;
+}
+
+/* Hide Mode: flies down off-screen */
+.ingame-cams-wrapper.hidden {
+  transform: translateY(260px) !important;
+}
+
+/* Swapped mode (Left <-> Right) */
+.ingame-cams-wrapper.swapped {
+  flex-direction: row-reverse;
+}
+
+/* Single Cam Box (Scale exactly matches Image 2 & Minimap proportions) */
+.fconline-cam-box {
+  width: 270px;
+  display: flex;
+  flex-direction: column;
+  filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.9));
+}
+
+/* Video Frame (VDO.Ninja iframe edge-to-edge fit) */
+.cam-video-frame {
+  width: 270px;
+  height: 152px; /* 16:9 large broadcast cam matching Image 2 */
+  background: #000;
+  border-radius: 4px 4px 0 0;
+  overflow: hidden;
+  position: relative;
+  border: 3.5px solid #ff2244; /* Dynamic kit color */
+  border-bottom: none;
+  box-sizing: border-box;
+}
+
+.cam-video-frame iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: #000;
+  display: block;
+  object-fit: cover;
+  pointer-events: auto;
+}
+
+/* Nameplate Underneath Camera */
+.cam-nameplate-bar {
+  width: 270px;
+  height: 28px;
+  background: #0a0e16;
+  border-radius: 0 0 4px 4px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  box-sizing: border-box;
+}
+
+.cam-player-tag {
+  font-size: 13px;
+  font-weight: 900;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.cam-team-tag {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+}
+
+/* =========================================================
+   PREMIER LEAGUE GOAL CELEBRATION EFFECT
+   FITS EXACTLY OVER THE IN-GAME SCOREBOARD
+   Exact Coordinates from in-game: Top: 73px, Left: 108px, Width: 618px, Height: 40px
+   ========================================================= */
+.pl-goal-overlay {
+  position: absolute;
+  top: 73px;
+  left: 108px;
+  width: 618px;
+  height: 40px;
+  display: flex;
+  align-items: stretch;
+  opacity: 0;
+  pointer-events: none;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+  filter: drop-shadow(0 6px 18px rgba(0, 0, 0, 0.9));
+  z-index: 999;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.pl-goal-overlay.active {
+  opacity: 1;
+  transform: scaleX(1);
+  pointer-events: auto;
+}
+
+/* Scorer Dynamic Color Block */
+.pl-goal-wedge {
+  background: #ff2244; /* Overwritten by JS inline color */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 20px;
+  min-width: 140px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.pl-goal-text {
+  font-family: var(--font-condensed);
+  font-size: 32px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 2px;
+  line-height: 1;
+  text-transform: uppercase;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+  animation: plFlash 0.8s infinite alternate;
+}
+
+@keyframes plFlash {
+  0% { filter: brightness(1); }
+  100% { filter: brightness(1.3); }
+}
+
+/* Player Name Bar */
+.pl-player-wedge {
+  flex: 1;
+  background: #090d16;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 18px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-left: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.pl-player-name {
+  font-size: 16px;
+  font-weight: 900;
+  color: #ffffff;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* Light Sweep effect */
+.pl-player-wedge::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  animation: plSweep 1.6s infinite;
+}
+
+@keyframes plSweep {
+  0% { left: -100%; }
+  100% { left: 200%; }
+}
+

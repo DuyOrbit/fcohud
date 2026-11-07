@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,700;0,800;0,900;1,800;1,900&family=Teko:wght@600;700&family=Rajdhani:wght@700&display=swap');
+
+:root {
+  --font-main: 'Montserrat', sans-serif;
+  --font-condensed: 'Teko', sans-serif;
+  --font-rajdhani: 'Rajdhani', sans-serif;
+  
+  --bg-dark: #0a0d14;
+  --bg-panel: #111722;
+  --text-white: #ffffff;
+  --text-muted: #8c9ba5;
+  
+  --fvpl-green: #00ff88;
+  --fvpl-cyan: #00e5ff;
+  --gold-glow: 0 0 20px rgba(255, 215, 0, 0.6);
+  --cyan-glow: 0 0 20px rgba(0, 229, 255, 0.6);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FVPL In-Game HUD Controller</title>
+  <link rel="stylesheet" href="css/fvpl-common.css">
+  <link rel="stylesheet" href="css/control.css">
+</head>
+<body>
+  <div class="controller-wrap">
+    <!-- Top Header -->
+    <header class="control-header">
+      <div class="header-title">
+        <h1>
+          <span class="badge-fvpl">FVPL 2026</span>
+          BẢNG ĐIỀU KHIỂN HUD IN-GAME
+        </h1>
+      </div>
+      <div class="status-badge">
+        <span class="status-dot" id="statusDot"></span>
+        <span id="statusText">Đang kết nối WebSocket...</span>
+      </div>
+    </header>
+
+    <!-- SCENE QUICK SWITCHER -->
+    <div class="scene-bar">
+      <button class="btn-scene" id="btnSceneIntro">
+        <span>🎬 1. INTRO ĐẦU TRẬN</span>
+        <span class="sub">Sequence: Logo ➔ Banner ➔ 2 Tuyển Thủ (Phím 1)</span>
+      </button>
+
+      <button class="btn-scene active-scene" id="btnSceneIngame">
+        <span>⚽ 2. HUD IN-GAME</span>
+        <span class="sub">2 Cams VDO.Ninja cạnh Radar + Goal Banner (Phím 2)</span>
+      </button>
+
+      <button class="btn-scene" id="btnSceneNone">
+        <span>⬛ 3. ẨN OVERLAY</span>
+        <span class="sub">Tắt tạm thời toàn bộ giao diện (Phím 3)</span>
+      </button>
+    </div>
+
+    <!-- QUICK ACTIONS GRID -->
+    <div class="control-grid">
+      <!-- CAMERA IN-GAME CONTROLS -->
+      <div class="panel-card">
+        <div class="card-title">
+          <span>ĐIỀU KHIỂN 2 WEBCAM CẠNH RADAR</span>
+          <span style="font-size: 11px; color: #00ff88;">REALTIME</span>
+        </div>
+        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 12px;">
+          Điều chỉnh nhanh khi bóng lăn xuống đáy sân hoặc đổi sân hiệp 2:
+        </p>
+        <div class="cam-btn-grid">
+          <button class="btn-action" id="btnToggleDim">
+            <div>🌫️ LÀM MỜ CAMS</div>
+            <div style="font-size: 11px; color: var(--text-muted);">(Phím D)</div>
+          </button>
+
+          <button class="btn-action" id="btnToggleHide">
+            <div>⬇️ ẨN / TRƯỢT XUỐNG</div>
+            <div style="font-size: 11px; color: var(--text-muted);">(Phím H)</div>
+          </button>
+
+          <button class="btn-action" id="btnToggleSwap">
+            <div>🔄 ĐỔI BÊN CAMS</div>
+            <div style="font-size: 11px; color: var(--text-muted);">(Phím S)</div>
+          </button>
+        </div>
+      </div>
+
+      <!-- PREMIER LEAGUE GOAL TRIGGER -->
+      <div class="panel-card">
+        <div class="card-title">
+          <span>HIỆU ỨNG GHI BÀN (PREMIER LEAGUE STYLE)</span>
+          <span style="font-size: 11px; color: #ff3344;">QUÉT BẢNG TỈ SỐ</span>
+        </div>
+        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 12px;">
+          Bung hiệu ứng màu áo của người ghi bàn đè lên bảng tỉ số góc trên:
+        </p>
+        <div class="goal-btn-grid">
+          <button class="btn-goal btn-goal-p1" id="btnGoalP1">
+            <span>⚽ GOAL: VĐV 1</span>
+            <span style="font-size: 12px; font-weight: normal;" id="labelGoalP1">NKxLHAT (Phím G)</span>
+          </button>
+
+          <button class="btn-goal btn-goal-p2" id="btnGoalP2">
+            <span>⚽ GOAL: VĐV 2</span>
+            <span style="font-size: 12px; font-weight: normal;" id="labelGoalP2">TAGxLieTa (Phím J)</span>
+          </button>
+        </div>
+        <button class="btn-action" id="btnResetGoal" style="width: 100%; margin-top: 10px; font-size: 12px; padding: 8px;">
+          Ẩn hiệu ứng bàn thắng ngay lập tức
+        </button>
+      </div>
+    </div>
+
+    <!-- PLAYER SETUP GRID -->
+    <div class="control-grid">
+      <!-- PLAYER 1 SETUP -->
+      <div class="panel-card" style="border-top: 3px solid #ff2244;">
+        <div class="card-title" style="color: #ff3344;">THÔNG TIN VĐV 1 (BÊN TRÁI)</div>
+        <div class="form-group">
+          <label>Tên Tuyển Thủ</label>
+          <input type="text" id="inputP1Name" value="NKxLHAT">
+        </div>
+        <div class="form-group">
+          <label>Team Tag</label>
+          <input type="text" id="inputP1Team" value="NK">
+        </div>
+        <div class="form-group">
+          <label>Màu Viền Khung Cam / Màu Áo Đấu</label>
+          <div class="color-picker-row">
+            <input type="color" id="inputP1Color" value="#ff2244">
+            <span id="textP1Color" style="font-family: monospace; font-size: 13px;">#ff2244</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Link Xem VDO.Ninja (Stream ID hoặc View URL)</label>
+          <input type="text" id="inputP1Vdo" value="https://vdo.ninja/?view=samplep1&cleanviewer=1" placeholder="https://vdo.ninja/?view=...">
+        </div>
+        <div class="form-group">
+          <label>Ảnh Chân Dung (Cutout PNG tách nền cho Intro)</label>
+          <input type="file" id="inputP1PhotoFile" accept="image/*" style="font-size: 12px; padding: 4px;">
+        </div>
+        <!-- Vị trí & Kích thước ảnh Intro VĐV 1 -->
+        <div style="background: rgba(0,0,0,0.3); padding: 10px; border-radius: 4px; margin-top: 6px;">
+          <div style="font-size: 11px; font-weight: 800; color: #ff2244; margin-bottom: 6px;">CĂN CHỈNH ẢNH INTRO VĐV 1</div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px;">
+            <div>
+              <label style="font-size: 10px;">Size (%)</label>
+              <input type="number" id="inputP1Scale" value="100" min="40" max="250" step="5" style="padding: 4px 6px; font-size: 12px;">
+            </div>
+            <div>
+              <label style="font-size: 10px;">Vị trí X</label>
+              <input type="number" id="inputP1OffsetX" value="0" min="-300" max="300" step="5" style="padding: 4px 6px; font-size: 12px;">
+            </div>
+            <div>
+              <label style="font-size: 10px;">Vị trí Y</label>
+              <input type="number" id="inputP1OffsetY" value="0" min="-300" max="300" step="5" style="padding: 4px 6px; font-size: 12px;">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PLAYER 2 SETUP -->
+      <div class="panel-card" style="border-top: 3px solid #ff7700;">
+        <div class="card-title" style="color: #ff7700;">THÔNG TIN VĐV 2 (BÊN PHẢI)</div>
+        <div class="form-group">
+          <label>Tên Tuyển Thủ</label>
+          <input type="text" id="inputP2Name" value="TAGxLieTa">
+        </div>
+        <div class="form-group">
+          <label>Team Tag</label>
+          <input type="text" id="inputP2Team" value="TAG">
+        </div>
+        <div class="form-group">
+          <label>Màu Viền Khung Cam / Màu Áo Đấu</label>
+          <div class="color-picker-row">
+            <input type="color" id="inputP2Color" value="#ff7700">
+            <span id="textP2Color" style="font-family: monospace; font-size: 13px;">#ff7700</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Link Xem VDO.Ninja (Stream ID hoặc View URL)</label>
+          <input type="text" id="inputP2Vdo" value="https://vdo.ninja/?view=samplep2&cleanviewer=1" placeholder="https://vdo.ninja/?view=...">
+        </div>
+        <div class="form-group">
+          <label>Ảnh Chân Dung (Cutout PNG tách nền cho Intro)</label>
+          <input type="file" id="inputP2PhotoFile" accept="image/*" style="font-size: 12px; padding: 4px;">
+        </div>
+        <!-- Vị trí & Kích thước ảnh Intro VĐV 2 -->
+        <div style="background: rgba(0,0,0,0.3); padding: 10px; border-radius: 4px; margin-top: 6px;">
+          <div style="font-size: 11px; font-weight: 800; color: #ff7700; margin-bottom: 6px;">CĂN CHỈNH ẢNH INTRO VĐV 2</div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px;">
+            <div>
+              <label style="font-size: 10px;">Size (%)</label>
+              <input type="number" id="inputP2Scale" value="100" min="40" max="250" step="5" style="padding: 4px 6px; font-size: 12px;">
+            </div>
+            <div>
+              <label style="font-size: 10px;">Vị trí X</label>
+              <input type="number" id="inputP2OffsetX" value="0" min="-300" max="300" step="5" style="padding: 4px 6px; font-size: 12px;">
+            </div>
+            <div>
+              <label style="font-size: 10px;">Vị trí Y</label>
+              <input type="number" id="inputP2OffsetY" value="0" min="-300" max="300" step="5" style="padding: 4px 6px; font-size: 12px;">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TOURNAMENT INFO & SAVE -->
+    <div class="panel-card" style="margin-bottom: 24px;">
+      <div class="card-title">CẤU HÌNH GIẢI ĐẤU & LOGO INTRO</div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+        <div class="form-group">
+          <label>Tên Vòng Đấu</label>
+          <input type="text" id="inputTourStage" value="FINAL">
+        </div>
+        <div class="form-group">
+          <label>Số Thứ Tự Trận</label>
+          <input type="text" id="inputTourGame" value="GAME 3">
+        </div>
+      </div>
+      
+      <!-- Upload Logo (Ảnh hoặc Video) & Căn chỉnh -->
+      <div style="background: rgba(0,0,0,0.3); padding: 12px; border-radius: 6px; margin-top: 10px; border: 1px solid rgba(255,255,255,0.08);">
+        <div class="form-group">
+          <label style="color: #00ff88;">Tải Logo Giải Đấu (Ảnh PNG/WebP/GIF hoặc Video MP4/WebM animation)</label>
+          <input type="file" id="inputTourLogoFile" accept="image/*,video/mp4,video/webm" style="font-size: 12px; padding: 4px;">
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+          <div class="form-group">
+            <label>Kích Thước Logo (%)</label>
+            <input type="number" id="inputTourLogoScale" value="100" min="40" max="250" step="5">
+          </div>
+          <div class="form-group">
+            <label>Vị Trí Y Logo (px)</label>
+            <input type="number" id="inputTourLogoOffsetY" value="0" min="-200" max="200" step="5">
+          </div>
+        </div>
+      </div>
+      <div style="display: flex; gap: 12px; margin-top: 8px;">
+        <button class="btn-action" id="btnSaveConfig" style="background: linear-gradient(135deg, #00ff88, #00b4d8); color: #0c111a; padding: 12px 24px; font-size: 15px;">
+          💾 LƯU CẤU HÌNH & ĐỒNG BỘ
+        </button>
+        <button class="btn-action" id="btnOpenOverlay" style="padding: 12px 24px;">
+          👁️ MỞ OVERLAY OBS (1920x1080)
+        </button>
+      </div>
+    </div>
+
+    <!-- HOTKEY GUIDE -->
+    <div class="hotkeys-bar">
+      <div><strong>Phím tắt nhanh:</strong></div>
+      <div><kbd>1</kbd> Chạy Intro</div>
+      <div><kbd>2</kbd> In-Game HUD</div>
+      <div><kbd>3</kbd> Ẩn Overlay</div>
+      <div><kbd>D</kbd> Làm mờ Cams</div>
+      <div><kbd>H</kbd> Ẩn/Hiện Cams</div>
+      <div><kbd>S</kbd> Đổi bên Cams</div>
+      <div><kbd>G</kbd> Goal VĐV 1</div>
+      <div><kbd>J</kbd> Goal VĐV 2</div>
+    </div>
+  </div>
+
+  <script src="js/sync.js"></script>
+  <script src="js/control.js"></script>
+</body>
+</html>
+

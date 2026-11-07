@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 700" width="500" height="700">
+  <defs>
+    <linearGradient id="p2BodyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff7700" />
+      <stop offset="100%" stop-color="#cc4400" />
+    </linearGradient>
+    <linearGradient id="skinGrad2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffdec9" />
+      <stop offset="100%" stop-color="#f0be9e" />
+    </linearGradient>
+    <filter id="drop2" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="15" stdDeviation="15" flood-color="rgba(0,0,0,0.6)"/>
+    </filter>
+  </defs>
+  <g filter="url(#drop2)">
+    <!-- Body / Orange Jersey -->
+    <path d="M110 390 L250 360 L390 390 L440 700 L60 700 Z" fill="url(#p2BodyGrad)" />
+    <!-- White V-neck -->
+    <path d="M210 375 L250 425 L290 375 Z" fill="#ffffff" />
+    <text x="250" y="520" font-family="'Montserrat', sans-serif" font-weight="900" font-size="34" fill="#ffffff" text-anchor="middle" letter-spacing="3">JEEP</text>
+    <text x="250" y="560" font-family="'Montserrat', sans-serif" font-weight="800" font-size="20" fill="rgba(255,255,255,0.7)" text-anchor="middle">TAG ESPORTS</text>
+
+    <!-- Neck -->
+    <rect x="220" y="290" width="60" height="80" rx="10" fill="url(#skinGrad2)" />
+    <!-- Head -->
+    <ellipse cx="250" cy="220" rx="90" ry="110" fill="url(#skinGrad2)" />
+    <!-- Hair -->
+    <path d="M150 170 C150 90 230 75 250 75 C280 75 350 90 350 170 C330 135 300 120 250 120 C200 120 170 135 150 170 Z" fill="#1f1812" />
+    <!-- Glasses -->
+    <rect x="180" y="195" width="55" height="35" rx="6" fill="none" stroke="#111111" stroke-width="6" />
+    <rect x="265" y="195" width="55" height="35" rx="6" fill="none" stroke="#111111" stroke-width="6" />
+    <line x1="235" y1="210" x2="265" y2="210" stroke="#111111" stroke-width="6" />
+    <!-- Eyes -->
+    <circle cx="207" cy="212" r="5" fill="#111" />
+    <circle cx="292" cy="212" r="5" fill="#111" />
+    <!-- Calm Smile -->
+    <path d="M225 270 Q250 282 275 270" stroke="#a35032" stroke-width="5" fill="none" stroke-linecap="round" />
+  </g>
+</svg>
+

@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 700" width="500" height="700">
+  <defs>
+    <linearGradient id="p1BodyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff2244" />
+      <stop offset="100%" stop-color="#aa0022" />
+    </linearGradient>
+    <linearGradient id="skinGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffd5b8" />
+      <stop offset="100%" stop-color="#f0b692" />
+    </linearGradient>
+    <filter id="drop" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="15" stdDeviation="15" flood-color="rgba(0,0,0,0.6)"/>
+    </filter>
+  </defs>
+  <g filter="url(#drop)">
+    <!-- Body / Red Jersey -->
+    <path d="M120 400 L250 360 L380 400 L430 700 L70 700 Z" fill="url(#p1BodyGrad)" />
+    <!-- Collar & Details -->
+    <path d="M200 375 L250 430 L300 375 Z" fill="#ffffff" />
+    <text x="250" y="520" font-family="'Montserrat', sans-serif" font-weight="900" font-size="34" fill="#ffffff" text-anchor="middle" letter-spacing="3">NEVOR</text>
+    <text x="250" y="560" font-family="'Montserrat', sans-serif" font-weight="800" font-size="20" fill="rgba(255,255,255,0.7)" text-anchor="middle">NK ESPORTS</text>
+    
+    <!-- Neck -->
+    <rect x="220" y="290" width="60" height="80" rx="10" fill="url(#skinGrad)" />
+    <!-- Head -->
+    <ellipse cx="250" cy="220" rx="90" ry="110" fill="url(#skinGrad)" />
+    <!-- Hair -->
+    <path d="M150 180 C150 100 230 80 250 80 C280 80 350 100 350 180 C340 140 310 130 250 130 C190 130 160 150 150 180 Z" fill="#2b1d0c" />
+    <!-- Glasses -->
+    <rect x="180" y="195" width="55" height="35" rx="6" fill="none" stroke="#111111" stroke-width="6" />
+    <rect x="265" y="195" width="55" height="35" rx="6" fill="none" stroke="#111111" stroke-width="6" />
+    <line x1="235" y1="210" x2="265" y2="210" stroke="#111111" stroke-width="6" />
+    <!-- Eyes -->
+    <circle cx="207" cy="212" r="5" fill="#111" />
+    <circle cx="292" cy="212" r="5" fill="#111" />
+    <!-- Smile -->
+    <path d="M225 270 Q250 290 275 270" stroke="#a35032" stroke-width="5" fill="none" stroke-linecap="round" />
+  </g>
+</svg>
+

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1920, height=1080, initial-scale=1.0">
+  <title>FC Online FVPL Tournament Overlay</title>
+  <link rel="stylesheet" href="css/fvpl-common.css">
+  <link rel="stylesheet" href="css/overlay.css">
+</head>
+<body>
+  <div class="overlay-container">
+    <!-- ==============================================================
+         SCENE 1: MATCHUP INTRO (HÌNH 3 & PHÁC THẢO HÌNH 5)
+         Step 1: Logo Center
+         Step 2: Banner Expand
+         Step 3: Cutouts Slide Up
+         ============================================================== -->
+    <div class="scene-intro" id="sceneIntro">
+      <!-- Cutouts and Logo emerging from top of the banner -->
+      <div class="intro-cutouts-mask">
+        <div class="intro-cutouts-container">
+          <!-- Player 1 Cutout -->
+          <div class="cutout-wrapper cutout-wrapper-p1" id="wrapCutoutP1">
+            <img class="cutout-img" id="introCutoutP1" src="assets/images/p1-cutout.svg" alt="P1">
+          </div>
+
+          <!-- Center Tournament Logo (Image or Video animation) -->
+          <div class="cutout-wrapper intro-center-logo-wrap" id="introLogoCenterWrap">
+            <img id="introCenterLogoImg" class="intro-logo-media" src="assets/images/fvpl-logo.svg" alt="FVPL">
+            <video id="introCenterLogoVideo" class="intro-logo-media" autoplay loop muted playsinline style="display:none;"></video>
+          </div>
+
+          <!-- Player 2 Cutout -->
+          <div class="cutout-wrapper cutout-wrapper-p2" id="wrapCutoutP2">
+            <img class="cutout-img" id="introCutoutP2" src="assets/images/p2-cutout.svg" alt="P2">
+          </div>
+        </div>
+      </div>
+
+      <!-- Expandable Split Banner -->
+      <div class="intro-banner-wrap" id="introBannerWrap">
+        <!-- Player 1 (Left Wing) -->
+        <div class="intro-wing-p1" id="introWingP1">
+          <img class="team-badge" id="introBadgeP1" src="assets/images/team-nk.svg" alt="NK">
+          <div class="player-title" id="introNameP1">NKxLHAT</div>
+        </div>
+
+        <!-- Center Stage Wedge -->
+        <div class="intro-stage-center">
+          <div class="stage-title" id="introStageTitle">FINAL</div>
+          <div class="stage-sub" id="introStageSub">GAME 3</div>
+        </div>
+
+        <!-- Player 2 (Right Wing) -->
+        <div class="intro-wing-p2" id="introWingP2">
+          <div class="player-title" id="introNameP2">TAGxLieTa</div>
+          <img class="team-badge" id="introBadgeP2" src="assets/images/team-tag.svg" alt="TAG">
+        </div>
+      </div>
+    </div>
+
+    <!-- ==============================================================
+         SCENE 2: IN-GAME HUD (HÌNH 1 & HÌNH 2)
+         - Premier League Goal celebration over in-game scoreboard
+         - Dual VDO.Ninja webcams flanking radar mini-map
+         ============================================================== -->
+    <div class="scene-ingame" id="sceneIngame">
+      <!-- PREMIER LEAGUE STYLE GOAL CELEBRATION (TOP-LEFT) -->
+      <div class="pl-goal-overlay" id="plGoalOverlay">
+        <div class="pl-goal-wedge" id="plGoalWedge">
+          <span class="pl-goal-text" id="plGoalTitle">VÀO!</span>
+        </div>
+        <div class="pl-player-wedge">
+          <span class="pl-player-name" id="plGoalPlayerName">NKxLHAT</span>
+        </div>
+      </div>
+
+      <!-- DUAL FACECAMS FLANKING THE RADAR MINI-MAP (BOTTOM CENTER) -->
+      <div class="ingame-cams-wrapper" id="ingameCamsWrapper">
+        <!-- PLAYER 1 CAM -->
+        <div class="fconline-cam-box" id="camBoxP1">
+          <div class="cam-video-frame" id="camFrameP1">
+            <iframe id="iframeP1" src="about:blank" allow="autoplay; camera; microphone"></iframe>
+          </div>
+          <div class="cam-nameplate-bar">
+            <span class="cam-player-tag" id="camNameP1">NKxLHAT</span>
+            <span class="cam-team-tag" id="camTeamP1">NK</span>
+          </div>
+        </div>
+
+        <!-- PLAYER 2 CAM -->
+        <div class="fconline-cam-box" id="camBoxP2">
+          <div class="cam-video-frame" id="camFrameP2">
+            <iframe id="iframeP2" src="about:blank" allow="autoplay; camera; microphone"></iframe>
+          </div>
+          <div class="cam-nameplate-bar">
+            <span class="cam-player-tag" id="camNameP2">TAGxLieTa</span>
+            <span class="cam-team-tag" id="camTeamP2">TAG</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/sync.js"></script>
+  <script src="js/overlay.js"></script>
+</body>
+</html>
+

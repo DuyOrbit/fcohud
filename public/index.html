@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FC Online FVPL Tournament HUD Hub</title>
+  <link rel="stylesheet" href="css/fvpl-common.css">
+  <style>
+    body {
+      background-color: var(--bg-dark);
+      color: #fff;
+      padding: 40px 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .hub-box {
+      max-width: 860px;
+      width: 100%;
+      background: #111722;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 36px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+    }
+    .hub-title {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .badge-vpl {
+      display: inline-block;
+      background: linear-gradient(135deg, #00ff88, #00b4d8);
+      color: #0c111a;
+      padding: 4px 12px;
+      border-radius: 4px;
+      font-size: 13px;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+    .hub-title h1 {
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+    .hub-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+    .hub-card {
+      background: #0d121c;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .hub-card h2 {
+      font-size: 18px;
+      font-weight: 800;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .hub-card p {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 18px;
+    }
+    .btn-link {
+      display: block;
+      text-align: center;
+      padding: 12px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 14px;
+    }
+    .btn-control {
+      background: linear-gradient(135deg, #00ff88, #00b4d8);
+      color: #0c111a;
+    }
+    .btn-overlay {
+      background: linear-gradient(135deg, #ff2244, #ff7700);
+      color: #ffffff;
+    }
+    .obs-guide {
+      background: #090e16;
+      border-radius: 8px;
+      padding: 20px;
+      border-left: 4px solid #00ff88;
+    }
+    .obs-guide h3 {
+      font-size: 15px;
+      color: #00ff88;
+      margin-bottom: 8px;
+      font-weight: 800;
+    }
+    .obs-guide ol {
+      margin-left: 20px;
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+  </style>
+</head>
+<body>
+  <div class="hub-box">
+    <div class="hub-title">
+      <span class="badge-vpl">FVPL ESPORTS HUD</span>
+      <h1>FC ONLINE TOURNAMENT BROADCAST</h1>
+      <p style="color: var(--text-muted); font-size: 14px; margin-top: 6px;">
+        Bộ công cụ hiển thị HUD in-game, camera VDO.Ninja và hiệu ứng ghi bàn Premier League
+      </p>
+    </div>
+
+    <div class="hub-cards">
+      <!-- Card Controller -->
+      <div class="hub-card">
+        <div>
+          <h2>🎛️ Bảng Điều Khiển</h2>
+          <p>
+            Dành cho Streamer / Trọng tài: Chạy intro đầu trận, làm mờ cam khi bóng xuống đáy sân, ẩn cam, đổi bên cam, và bấm hiệu ứng Goal.
+          </p>
+        </div>
+        <a href="/control" target="_blank" class="btn-link btn-control">MỞ TRANG ĐIỀU KHIỂN</a>
+      </div>
+
+      <!-- Card Overlay -->
+      <div class="hub-card">
+        <div>
+          <h2>📺 Link OBS Overlay</h2>
+          <p>
+            Độ phân giải 1920x1080 trong suốt. Chứa toàn bộ Scene 1 (Intro) và Scene 2 (HUD In-game + Premier League Goal).
+          </p>
+        </div>
+        <a href="/overlay" target="_blank" class="btn-link btn-overlay">XEM THỬ OVERLAY (1920x1080)</a>
+      </div>
+    </div>
+
+    <!-- OBS Guide -->
+    <div class="obs-guide">
+      <h3>Hướng dẫn dán vào OBS Studio:</h3>
+      <ol>
+        <li>Trong OBS Studio, nhấn dấu <strong>+</strong> tại khung Sources ➔ Chọn <strong>Browser</strong>.</li>
+        <li>Đặt URL: <code style="color: #fff;">http://localhost:3000/overlay</code></li>
+        <li>Chỉnh <strong>Width: 1920</strong> và <strong>Height: 1080</strong>.</li>
+        <li>Tích chọn <strong>Shutdown source when not visible</strong> và bấm <strong>OK</strong>.</li>
+        <li>Mở <strong>Bảng điều khiển</strong> tại <code style="color: #fff;">http://localhost:3000/control</code> để vận hành live!</li>
+      </ol>
+    </div>
+  </div>
+</body>
+</html>
+
