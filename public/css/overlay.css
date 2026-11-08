@@ -518,10 +518,12 @@ html, body {
   animation: heroPulseDisk 2s infinite alternate ease-in-out;
 }
 
+.side-left .goal-hero-glow-disk,
 .side-p1 .goal-hero-glow-disk {
   left: -80px;
 }
 
+.side-right .goal-hero-glow-disk,
 .side-p2 .goal-hero-glow-disk {
   right: -80px;
 }
@@ -565,10 +567,12 @@ html, body {
   transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
 }
 
+.side-left .goal-hero-figure,
 .side-p1 .goal-hero-figure {
   left: 100px;
 }
 
+.side-right .goal-hero-figure,
 .side-p2 .goal-hero-figure {
   right: 100px;
 }
@@ -609,12 +613,14 @@ html, body {
   flex-direction: column;
 }
 
+.side-left .goal-hero-badge-wrap,
 .side-p1 .goal-hero-badge-wrap {
   left: 680px;
   align-items: flex-start;
   text-align: left;
 }
 
+.side-right .goal-hero-badge-wrap,
 .side-p2 .goal-hero-badge-wrap {
   right: 680px;
   align-items: flex-end;
@@ -672,6 +678,7 @@ html, body {
   animation: cardSlide 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.2s backwards;
 }
 
+.side-right .goal-hero-card,
 .side-p2 .goal-hero-card {
   flex-direction: row-reverse;
 }

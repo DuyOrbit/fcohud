@@ -226,9 +226,14 @@ document.addEventListener('DOMContentLoaded', () => {
       plGoalTitle.textContent = goalTitle;
       plGoalPlayerName.textContent = goalName;
 
-      // Phương án 1: Esports Impact Hero Overlay
-      goalHeroOverlay.classList.remove('side-p1', 'side-p2');
-      goalHeroOverlay.classList.add(scorer === 1 ? 'side-p1' : 'side-p2');
+      // Phương án 1: Esports Impact Hero Overlay (Tự động bám theo vị trí cam thực tế sau khi đổi bên Hiệp 2)
+      const isSwapped = !!(state.camControls && state.camControls.isSwapped);
+      const currentSide = (scorer === 1)
+        ? (isSwapped ? 'side-right' : 'side-left')
+        : (isSwapped ? 'side-left' : 'side-right');
+
+      goalHeroOverlay.classList.remove('side-p1', 'side-p2', 'side-left', 'side-right');
+      goalHeroOverlay.classList.add(currentSide);
       goalHeroImg.src = goalPhoto;
       goalHeroShout.textContent = goalTitle;
       goalHeroTeamTag.textContent = goalTeam;

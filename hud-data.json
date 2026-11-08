@@ -36,8 +36,8 @@
   },
   "camControls": {
     "isDimmed": false,
-    "isHidden": true,
-    "isSwapped": false
+    "isHidden": false,
+    "isSwapped": true
   },
   "goalEffect": {
     "active": false,
