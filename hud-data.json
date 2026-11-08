@@ -1,7 +1,7 @@
 {
-  "activeScene": "intro",
+  "activeScene": "ingame",
   "introState": {
-    "isPlaying": true,
+    "isPlaying": false,
     "step": 1
   },
   "tournament": {
@@ -41,9 +41,9 @@
   },
   "goalEffect": {
     "active": false,
-    "scorer": 1,
+    "scorer": 2,
     "title": "VÀO!",
-    "playerName": "LHAT",
-    "color": "#ff2244"
+    "playerName": "Tabi",
+    "color": "#ff7700"
   }
 }
