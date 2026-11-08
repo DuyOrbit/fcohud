@@ -5,10 +5,20 @@ const express = require('express');
 const { WebSocketServer, WebSocket } = require('ws');
 
 const app = express();
+
+// Trust reverse proxy (Render, Cloudflare, etc.) so protocol & headers are correctly resolved
+app.set('trust proxy', 1);
+
 const server = http.createServer(app);
+
+// Optimize keep-alive timeouts for cloud load balancers (Render proxy timeout is 60s)
+server.keepAliveTimeout = 65000;
+server.headersTimeout = 66000;
+
 const wss = new WebSocketServer({ server });
 
-const PORT = process.env.PORT || 3000;
+// Render injects PORT; fallback to 10000 (Render default) or 3000 locally
+const PORT = parseInt(process.env.PORT, 10) || (process.env.NODE_ENV === 'production' ? 10000 : 3000);
 const ADMIN_PIN = process.env.ADMIN_PIN || '';
 const DATA_FILE = path.join(__dirname, 'hud-data.json');
 
@@ -91,6 +101,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Health check for Render / Uptime monitors (prevents spin down)
 app.get('/healthz', (req, res) => res.status(200).send('OK'));
+app.get('/health', (req, res) => res.status(200).send('OK'));
+
+// Explicit root route
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 
 // Verify admin pin
 app.get('/api/pin-required', (req, res) => {
@@ -231,6 +247,10 @@ const pingInterval = setInterval(() => {
 
 wss.on('close', () => {
   clearInterval(pingInterval);
+});
+
+server.on('error', (err) => {
+  console.error('Fatal Server Error:', err);
 });
 
 server.listen(PORT, '0.0.0.0', () => {
