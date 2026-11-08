@@ -11,14 +11,14 @@ app.set('trust proxy', 1);
 
 const server = http.createServer(app);
 
-// Optimize keep-alive timeouts for cloud load balancers (Render proxy timeout is 60s)
-server.keepAliveTimeout = 65000;
-server.headersTimeout = 66000;
+// Optimize keep-alive timeouts for cloud load balancers (Render, Fly.io, Cloudflare)
+server.keepAliveTimeout = 120000;
+server.headersTimeout = 125000;
 
 const wss = new WebSocketServer({ server });
 
-// Render injects PORT; fallback to 10000 (Render default) or 3000 locally
-const PORT = parseInt(process.env.PORT, 10) || (process.env.NODE_ENV === 'production' ? 10000 : 3000);
+// PORT: prioritizes process.env.PORT, falls back to 8080 in production (Fly.io/Docker standard) or 3000 locally
+const PORT = parseInt(process.env.PORT, 10) || (process.env.NODE_ENV === 'production' ? 8080 : 3000);
 const ADMIN_PIN = process.env.ADMIN_PIN || '';
 const DATA_FILE = path.join(__dirname, 'hud-data.json');
 
