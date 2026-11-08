@@ -235,6 +235,13 @@ document.addEventListener('DOMContentLoaded', () => {
       goalHeroOverlay.classList.remove('side-p1', 'side-p2', 'side-left', 'side-right');
       goalHeroOverlay.classList.add(currentSide);
       goalHeroImg.src = goalPhoto;
+
+      // Áp dụng chính xác vị trí X, Y và Kích thước % đã căn chỉnh ở Intro
+      const pScale = (player.scale || 100) / 100;
+      const pX = player.offsetX || 0;
+      const pY = player.offsetY || 0;
+      goalHeroImg.style.transform = `translate(${pX}px, ${pY}px) scale(${pScale})`;
+
       goalHeroShout.textContent = goalTitle;
       goalHeroTeamTag.textContent = goalTeam;
       goalHeroName.textContent = goalName;

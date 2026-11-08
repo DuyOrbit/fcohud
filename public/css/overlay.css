@@ -553,12 +553,12 @@ html, body {
   100% { background-position: 200px 200px; }
 }
 
-/* Hero Player Cutout Figure */
+/* Hero Player Cutout Figure (Tỉ lệ chuẩn 100% khớp với Intro: 440px x 560px) */
 .goal-hero-figure {
   position: absolute;
   bottom: 0;
-  width: 580px;
-  height: 780px;
+  width: 440px;
+  height: 560px;
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -569,12 +569,12 @@ html, body {
 
 .side-left .goal-hero-figure,
 .side-p1 .goal-hero-figure {
-  left: 100px;
+  left: 80px;
 }
 
 .side-right .goal-hero-figure,
 .side-p2 .goal-hero-figure {
-  right: 100px;
+  right: 80px;
 }
 
 .goal-hero-img {
@@ -583,6 +583,7 @@ html, body {
   object-fit: contain;
   transform-origin: bottom center;
   filter: drop-shadow(0 0 45px var(--hero-color)) drop-shadow(0 25px 45px rgba(0, 0, 0, 0.95));
+  transition: transform 0.2s ease;
 }
 
 .goal-hero-overlay.active .goal-hero-figure {
@@ -591,11 +592,11 @@ html, body {
 
 @keyframes heroCutoutSlam {
   0% {
-    transform: translateY(110%) scale(0.85);
+    transform: translateY(110%) scale(0.9);
     opacity: 0;
   }
   60% {
-    transform: translateY(-15px) scale(1.03);
+    transform: translateY(-12px) scale(1.02);
     opacity: 1;
   }
   100% {
@@ -607,7 +608,7 @@ html, body {
 /* Hero Typography & Nameplate Badge */
 .goal-hero-badge-wrap {
   position: absolute;
-  bottom: 180px;
+  bottom: 160px;
   z-index: 970;
   display: flex;
   flex-direction: column;
@@ -615,14 +616,14 @@ html, body {
 
 .side-left .goal-hero-badge-wrap,
 .side-p1 .goal-hero-badge-wrap {
-  left: 680px;
+  left: 580px;
   align-items: flex-start;
   text-align: left;
 }
 
 .side-right .goal-hero-badge-wrap,
 .side-p2 .goal-hero-badge-wrap {
-  right: 680px;
+  right: 580px;
   align-items: flex-end;
   text-align: right;
 }

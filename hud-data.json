@@ -1,7 +1,7 @@
 {
-  "activeScene": "ingame",
+  "activeScene": "intro",
   "introState": {
-    "isPlaying": false,
+    "isPlaying": true,
     "step": 1
   },
   "tournament": {
