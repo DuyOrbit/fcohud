@@ -459,3 +459,260 @@ html, body {
   100% { left: 200%; }
 }
 
+/* =========================================================
+   PHƯƠNG ÁN 1: ESPORTS IMPACT HERO GOAL CELEBRATION
+   Phong cách FC Pro Open & FVPL đỉnh cao
+   ========================================================= */
+:root {
+  --hero-color: #ff2244;
+}
+
+.goal-hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1920px;
+  height: 1080px;
+  pointer-events: none;
+  z-index: 950;
+  opacity: 0;
+  visibility: hidden;
+  overflow: hidden;
+  transition: opacity 0.35s ease, visibility 0.35s ease;
+}
+
+.goal-hero-overlay.active {
+  opacity: 1;
+  visibility: visible;
+  animation: goalScreenShake 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+@keyframes goalScreenShake {
+  0% { transform: translate(0, 0); }
+  20% { transform: translate(-8px, 6px) rotate(-0.4deg); }
+  40% { transform: translate(7px, -4px) rotate(0.3deg); }
+  60% { transform: translate(-4px, 3px) rotate(-0.1deg); }
+  80% { transform: translate(3px, -1px); }
+  100% { transform: translate(0, 0); }
+}
+
+/* Background Atmosphere */
+.goal-hero-backdrop {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* Glowing Aura Disk behind player */
+.goal-hero-glow-disk {
+  position: absolute;
+  width: 900px;
+  height: 900px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--hero-color) 0%, rgba(0, 0, 0, 0.65) 55%, transparent 75%);
+  filter: blur(35px);
+  opacity: 0.85;
+  bottom: -150px;
+  transition: left 0.3s ease, right 0.3s ease;
+  animation: heroPulseDisk 2s infinite alternate ease-in-out;
+}
+
+.side-p1 .goal-hero-glow-disk {
+  left: -80px;
+}
+
+.side-p2 .goal-hero-glow-disk {
+  right: -80px;
+}
+
+@keyframes heroPulseDisk {
+  0% { transform: scale(0.95); opacity: 0.75; }
+  100% { transform: scale(1.1); opacity: 0.95; }
+}
+
+/* Diagonal Broadcast Speed Lines */
+.goal-hero-speedlines {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 24px,
+    rgba(255, 255, 255, 0.04) 25px,
+    rgba(255, 255, 255, 0.04) 27px
+  );
+  animation: speedLinesScroll 1s linear infinite;
+  opacity: 0.8;
+}
+
+@keyframes speedLinesScroll {
+  0% { background-position: 0 0; }
+  100% { background-position: 200px 200px; }
+}
+
+/* Hero Player Cutout Figure */
+.goal-hero-figure {
+  position: absolute;
+  bottom: 0;
+  width: 580px;
+  height: 780px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  transform-origin: bottom center;
+  z-index: 960;
+  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+}
+
+.side-p1 .goal-hero-figure {
+  left: 100px;
+}
+
+.side-p2 .goal-hero-figure {
+  right: 100px;
+}
+
+.goal-hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transform-origin: bottom center;
+  filter: drop-shadow(0 0 45px var(--hero-color)) drop-shadow(0 25px 45px rgba(0, 0, 0, 0.95));
+}
+
+.goal-hero-overlay.active .goal-hero-figure {
+  animation: heroCutoutSlam 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes heroCutoutSlam {
+  0% {
+    transform: translateY(110%) scale(0.85);
+    opacity: 0;
+  }
+  60% {
+    transform: translateY(-15px) scale(1.03);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+/* Hero Typography & Nameplate Badge */
+.goal-hero-badge-wrap {
+  position: absolute;
+  bottom: 180px;
+  z-index: 970;
+  display: flex;
+  flex-direction: column;
+}
+
+.side-p1 .goal-hero-badge-wrap {
+  left: 680px;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.side-p2 .goal-hero-badge-wrap {
+  right: 680px;
+  align-items: flex-end;
+  text-align: right;
+}
+
+.goal-hero-subtag {
+  font-family: var(--font-condensed);
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 5px;
+  color: var(--hero-color);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  text-shadow: 0 0 15px var(--hero-color);
+}
+
+.goal-hero-shout {
+  font-family: var(--font-condensed);
+  font-size: 140px;
+  line-height: 0.88;
+  font-weight: 900;
+  letter-spacing: 6px;
+  color: #ffffff;
+  text-transform: uppercase;
+  text-shadow:
+    0 0 25px var(--hero-color),
+    0 0 50px var(--hero-color),
+    0 12px 25px rgba(0, 0, 0, 0.85);
+  animation: shoutPop 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.1s backwards;
+}
+
+@keyframes shoutPop {
+  0% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Card Plate with Kit Color */
+.goal-hero-card {
+  display: flex;
+  align-items: stretch;
+  background: rgba(10, 14, 22, 0.94);
+  border: 2px solid var(--hero-color);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8), 0 0 30px var(--hero-color);
+  border-radius: 6px;
+  transform: skewX(-12deg);
+  overflow: hidden;
+  margin-top: 14px;
+  animation: cardSlide 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.2s backwards;
+}
+
+.side-p2 .goal-hero-card {
+  flex-direction: row-reverse;
+}
+
+@keyframes cardSlide {
+  0% {
+    transform: skewX(-12deg) translateY(60px);
+    opacity: 0;
+  }
+  100% {
+    transform: skewX(-12deg) translateY(0);
+    opacity: 1;
+  }
+}
+
+.goal-hero-team-tag {
+  background: var(--hero-color);
+  color: #ffffff;
+  font-family: var(--font-condensed);
+  font-size: 32px;
+  font-weight: 900;
+  padding: 12px 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: 2px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  transform: skewX(12deg); /* Unskew text */
+}
+
+.goal-hero-name {
+  color: #ffffff;
+  font-size: 26px;
+  font-weight: 900;
+  padding: 12px 32px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(90deg, #111723 0%, #080c14 100%);
+  transform: skewX(12deg); /* Unskew text */
+}
+
+

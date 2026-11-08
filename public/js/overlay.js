@@ -37,6 +37,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const plGoalTitle = document.getElementById('plGoalTitle');
   const plGoalPlayerName = document.getElementById('plGoalPlayerName');
 
+  // Elements - Esports Impact Hero Goal Celebration (Phương án 1)
+  const goalHeroOverlay = document.getElementById('goalHeroOverlay');
+  const goalHeroImg = document.getElementById('goalHeroImg');
+  const goalHeroShout = document.getElementById('goalHeroShout');
+  const goalHeroTeamTag = document.getElementById('goalHeroTeamTag');
+  const goalHeroName = document.getElementById('goalHeroName');
+
   let currentVdoP1 = '';
   let currentVdoP2 = '';
   let introTimer = null;
@@ -48,18 +55,33 @@ document.addEventListener('DOMContentLoaded', () => {
       const AudioCtx = window.AudioContext || window.webkitAudioContext;
       if (!AudioCtx) return;
       const ctx = new AudioCtx();
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(140, ctx.currentTime);
-      osc.frequency.exponentialRampToValueAtTime(580, ctx.currentTime + 0.12);
-      osc.frequency.exponentialRampToValueAtTime(60, ctx.currentTime + 0.38);
-      gain.gain.setValueAtTime(0.25, ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.4);
-      osc.connect(gain);
-      gain.connect(ctx.destination);
-      osc.start();
-      osc.stop(ctx.currentTime + 0.42);
+
+      // 1. Deep Sub-Bass Drop
+      const subOsc = ctx.createOscillator();
+      const subGain = ctx.createGain();
+      subOsc.type = 'triangle';
+      subOsc.frequency.setValueAtTime(120, ctx.currentTime);
+      subOsc.frequency.exponentialRampToValueAtTime(32, ctx.currentTime + 0.5);
+      subGain.gain.setValueAtTime(0.45, ctx.currentTime);
+      subGain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.55);
+      subOsc.connect(subGain);
+      subGain.connect(ctx.destination);
+      subOsc.start();
+      subOsc.stop(ctx.currentTime + 0.55);
+
+      // 2. High-energy Whoosh Sweep
+      const sweepOsc = ctx.createOscillator();
+      const sweepGain = ctx.createGain();
+      sweepOsc.type = 'sine';
+      sweepOsc.frequency.setValueAtTime(260, ctx.currentTime);
+      sweepOsc.frequency.exponentialRampToValueAtTime(920, ctx.currentTime + 0.12);
+      sweepOsc.frequency.exponentialRampToValueAtTime(75, ctx.currentTime + 0.42);
+      sweepGain.gain.setValueAtTime(0.3, ctx.currentTime);
+      sweepGain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.45);
+      sweepOsc.connect(sweepGain);
+      sweepGain.connect(ctx.destination);
+      sweepOsc.start();
+      sweepOsc.stop(ctx.currentTime + 0.45);
     } catch (e) {}
   }
 
@@ -186,33 +208,50 @@ document.addEventListener('DOMContentLoaded', () => {
     ingameCamsWrapper.classList.toggle('hidden', !!state.camControls.isHidden);
     ingameCamsWrapper.classList.toggle('swapped', !!state.camControls.isSwapped);
 
-    // 3. Premier League Goal Celebration
+    // 3. Goal Celebration (Phối hợp cả Scoreboard Wipe & Esports Impact Hero Phương Án 1)
     if (state.goalEffect && state.goalEffect.active) {
       const scorer = state.goalEffect.scorer || 1;
       const player = scorer === 1 ? state.player1 : state.player2;
       const goalColor = state.goalEffect.color || player.color || (scorer === 1 ? '#ff2244' : '#ff7700');
       const goalName = state.goalEffect.playerName || player.name || (scorer === 1 ? 'VĐV 1' : 'VĐV 2');
+      const goalTeam = player.team || (scorer === 1 ? 'NK' : 'TAG');
+      const goalPhoto = player.photo || (scorer === 1 ? 'assets/images/p1-cutout.svg' : 'assets/images/p2-cutout.svg');
+      const goalTitle = state.goalEffect.title || 'VÀO!';
 
+      // Set CSS variable for neon aura & glow
+      document.documentElement.style.setProperty('--hero-color', goalColor);
+
+      // Scoreboard bar overlay
       plGoalWedge.style.backgroundColor = goalColor;
-      plGoalTitle.textContent = state.goalEffect.title || 'VÀO!';
+      plGoalTitle.textContent = goalTitle;
       plGoalPlayerName.textContent = goalName;
+
+      // Phương án 1: Esports Impact Hero Overlay
+      goalHeroOverlay.classList.remove('side-p1', 'side-p2');
+      goalHeroOverlay.classList.add(scorer === 1 ? 'side-p1' : 'side-p2');
+      goalHeroImg.src = goalPhoto;
+      goalHeroShout.textContent = goalTitle;
+      goalHeroTeamTag.textContent = goalTeam;
+      goalHeroName.textContent = goalName;
 
       if (!lastGoalActive) {
         lastGoalActive = true;
         plGoalOverlay.classList.add('active');
+        goalHeroOverlay.classList.add('active');
 
-        // Play broadcast whoosh impact sound
+        // Play broadcast whoosh + deep sub-bass impact
         playEsportsWhoosh();
 
-        // Auto retract after 6 seconds
+        // Auto retract after 5.5 seconds
         if (goalTimer) clearTimeout(goalTimer);
         goalTimer = setTimeout(() => {
           window.hudSync.resetGoal();
-        }, 6000);
+        }, 5500);
       }
     } else {
       lastGoalActive = false;
       plGoalOverlay.classList.remove('active');
+      goalHeroOverlay.classList.remove('active');
       if (goalTimer) {
         clearTimeout(goalTimer);
         goalTimer = null;
